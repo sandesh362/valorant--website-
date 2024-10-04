@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "../../../style";
-import { valoranttext } from "../../../assets/index";
+import styles from "../../style";
+import { valoranttext } from "../../assets/index";
 
 const Hero = () => (
   <section
     id="hero"
-    className="relative flex items-center justify-center h-screen overflow-hidden min-h-[490px] h-[36vh]"
+    className="relative flex items-center justify-center overflow-hidden min-h-[490px]"
   >
     <div
       className={`relative flex items-center justify-center flex-col px-[5%] py-[4rem] w-full h-full`}
@@ -35,10 +35,10 @@ const Hero = () => (
       muted
       className="absolute z-[-1] w-auto min-w-full min-h-full max-w-none"
     >
-      <source
+      {/* <source
         src="https://github.com/sandesh362/valorant--website-/raw/refs/heads/main/src/assets/DUELISTS%20__%20Official%20Launch%20Cinematic%20Trailer%20-%20VALORANT.mp4"
         type="video/mp4"
-      />
+      /> */}
       Your browser does not support the video tag.
     </video>
   </section>

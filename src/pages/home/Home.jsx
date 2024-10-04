@@ -1,4 +1,4 @@
-import styles from "../../../style";
+import styles from "../../style";
 import Hero from "../home/Hero";
 import News from "../home/News";
 // import LastEpisode from "../home/LastEpisode";
