@@ -16,8 +16,8 @@ const Home = () => (
       </div>
     </div>
     {/* <Overview /> */}
-    <About />
-    <Agent />
+    {/* <About />
+    <Agent /> */}
   </>
 );
 
