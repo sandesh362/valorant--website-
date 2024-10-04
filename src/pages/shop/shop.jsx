@@ -28,7 +28,7 @@ export const Shop = () => {
   }, [inView, isFetching, hasMoreProducts]);
 
   return (
-    <div className="shop bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+    <div className="shop min-h-screen flex flex-col justify-center items-center">
       <div className="shopTitle text-center">
         <h1 className="font-poppins font-normal text-5xl font-bold text-[#FF4655] m-8 p-12">PRODUCT SHOP</h1>
       </div>
