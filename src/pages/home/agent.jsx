@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles, { layout } from "../../style";
 
 const Agent = () => (
-  <div className={`bg-secondary  ${styles.paddingX} ${styles.flexStart}`}>
+  <div className={`bg-dimBlue  ${styles.paddingX} ${styles.flexStart}`}>
     <div className={`${styles.boxWidth}`}>
       <section
         id="maps"

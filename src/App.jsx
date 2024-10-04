@@ -10,6 +10,8 @@ import { ShopContextProvider } from "./components/context/shop-context"
 import { Shop } from "./pages/shop/shop"
 import { Cart } from "./pages/cart/cart";
 import Contact from "./pages/contact/Contact";
+import About from "./pages/about/About";
+import News from "./pages/news/News";
 
 
 
@@ -25,6 +27,8 @@ const App = () => {
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/aboutus" element={<About />} />
+            <Route path="/news" element={<News />} />
             <Route path="*" element={<h1>You Lost In the World of Valorant 😀</h1>} />
           </Routes>
           <Footer />

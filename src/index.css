@@ -356,7 +356,7 @@ nav {
 }
 
 #hero::after {
-  background-color: #e6e8e1;
+  background-color: rgba(9, 151, 124, 0.1);
 }
 
 @media (min-width: 768px) {

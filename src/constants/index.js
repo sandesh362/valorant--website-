@@ -6,11 +6,11 @@ export const navLinks = [
     title: "Home",
   },
   {
-    id: "/#news",
+    id: "/news",
     title: "News",
   },
   {
-    id: "/#about",
+    id: "/aboutus",
     title: "About",
   },
   {
@@ -47,6 +47,13 @@ export const news = [
     title: "WHAT’S NEW IN VALORANT EPISODE 5 ACT III",
     date: "10/18/22",
     category: "GAME UPDATES",
+    imglink: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/d80da40569edce255f709e70b28954f41d39feba-1920x1080.jpg?auto=format&fit=fill&q=80&w=480"
+  },
+  {
+    id: "news-4",
+    title: "AGENT COSPLAY GUIDE: HARBOR",
+    date: "10/27/22",
+    category: "COMMUNITY",
     imglink: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/d80da40569edce255f709e70b28954f41d39feba-1920x1080.jpg?auto=format&fit=fill&q=80&w=480"
   },
 ]
