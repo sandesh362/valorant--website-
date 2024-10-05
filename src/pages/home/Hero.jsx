@@ -26,7 +26,7 @@ const Hero = () => {
       <div
         className={`relative flex items-center justify-center flex-col px-[5%] py-[4rem] w-full h-full`}
       >
-        <div className="sm:py-10 py-0 flex items-center justify-between sm:flex-col flex-col-reverse mb-auto">
+        <div className="sm:py-10 py-0 flex items-center justify-between sm:flex-col mb-auto">
           {/* Optional content could be uncommented if needed */}
           {/* <h6 className="text-white font-semibold mt-4 text-center sm:mb-10">
             A 5v5 character-based tactical shooter
@@ -40,24 +40,24 @@ const Hero = () => {
             /> */}
           </div>
         </div>
-        <button className="btn" onClick={visitShop}>
+        {/* <button className="btn" onClick={visitShop}>
           <span className="btn__inner">
             <span className="btn__slide"></span>
             <span className="btn__content">SHOP NOW</span>
           </span>
-        </button>
+        </button> */}
       </div>
       <video
         autoPlay
         loop
         muted
-        className="absolute z-[-1] w-auto min-w-full min-h-full max-w-none"
+        className="absolute z-[0] w-auto min-w-full min-h-full max-w-none"
       >
         {/* Uncomment if needed, provide a video source */}
-        {/* <source
+        <source
           src="https://github.com/sandesh362/valorant--website-/raw/refs/heads/main/src/assets/DUELISTS%20__%20Official%20Launch%20Cinematic%20Trailer%20-%20VALORANT.mp4"
           type="video/mp4"
-        /> */}
+        />
         Your browser does not support the video tag.
       </video>
     </section>

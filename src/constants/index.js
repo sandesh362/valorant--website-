@@ -76,3 +76,44 @@ export const socialMedia = [
   },
 
 ];
+
+export const review = [
+  {
+    id: "1",
+    name: "john doe",
+    image: "",
+    review: "Bought MYS VP,apart from the little delay the service was very fine and clean people are very helpful and trustworthy no second thoughts needed will come back for more offers soon",
+  },
+  {
+    id: "2",
+    name: "Aryan Jadhav",
+    image: "",
+    review: "Very trustworthy person was amazing dealing with them…looking forward for more amazing deals.. you can trust them guys!! They are genuine ❤ bought kuronami vandal account for 2200",
+  },
+  {
+    id: "3",
+    name: "shreyas Gawande",
+    image: "",
+    review: "100 % trusted and legit Most trusted and friendly, I ordered 1165 vp I got 1170 instead 😂 but really fast and legit service🙏🙏",
+  },
+  {
+    id: "4",
+    name: "Aditya Rathod",
+    image: "",
+    review: "“I’ve bought multiple VALORANT accounts from TEAM FURY, and I couldn’t be happier. The prices are unbeatable, and the service is top-notch! The owners are so sweet and helpful, making the whole experience smooth and easy.” ",
+  },
+  {
+    id: "5",
+    name: "Akshit D",
+    image: "",
+    review: "“TEAM FURY is hands down the best place for VALORANT accounts! Affordable prices and exceptional service. The owners were so sweet and answered all my questions without hesitation. Highly recommend them!” ",
+  },
+  {
+    id: "6",
+    name: "Sarvesh mane",
+    image: "",
+    review: "“I was nervous about buying an account online, but TEAM FURY made the process simple and stress-free. The customer service is excellent, and the prices can’t be beat. The owners are so nice and really care about their customers!” ",
+  },
+
+  
+]
