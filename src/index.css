@@ -386,3 +386,6 @@ select {
 select>option{
   font-size: 1.5rem;
 }
+.range-slider {
+  accent-color: red;
+}
