@@ -17,6 +17,11 @@ import TermsAndServices from "./pages/about/TermsAndServices";
 import PrivacyNotes from "./pages/about/privacy";
 import CookiePreference from "./pages/about/cokkie";
 import Blog from "./components/pages/home/Blog"
+import Admin from './pages/Admin.jsx';
+
+import ProtectedRoute from "./components/utils/ProtectedRoute.jsx"; // adjust path
+import AdminLogin from "./components/auth/ProtectedRoute.jsx"; // adjust path
+
 
 
 
@@ -39,7 +44,10 @@ const App = () => {
             <Route path="/privacy" element={<PrivacyNotes/>} /> 
             <Route path="/CookiePreference" element={<CookiePreference/>} /> 
             <Route path="/blogs" element={<Blog />}/>
+           <Route path="/admin" element={<Admin />} />
            
+
+             {/* <Route path="/admin" element={<AdminLogin />} /> */}
             <Route path="*" element={<h1>You Lost In the World of Valorant 😀</h1>} />
           </Routes>
           <Footer />
