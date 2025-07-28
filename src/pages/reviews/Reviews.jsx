@@ -49,7 +49,7 @@ function getRandomColor(index) {
 
   return (
     <div className="bg-black min-h-screen p-6 text-white">
-      <h1 className="text-4xl font-bold text-center text-[#FF4655] mb-12">Player Reviews</h1>
+      <h1 className="text-4xl font-bold text-center text-[#FF4655] mb-12">Buyers Reviews</h1>
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="bg-[#1F1F1F] p-6 rounded-lg mb-12 max-w-xl mx-auto shadow-lg">
