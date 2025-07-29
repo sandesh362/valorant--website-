@@ -181,7 +181,7 @@ export const Shop = () => {
           <div className="sm:w-[20rem] w-[70vw]">
             <RangeSlider
               min={0}
-              max={15000}
+              max={100000}
               step={100}
               value={priceRange}
               onInput={handlePriceChange}
