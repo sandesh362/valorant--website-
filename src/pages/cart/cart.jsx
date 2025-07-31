@@ -1,102 +1,147 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../../components/context/shop-context";
-import { PRODUCTS } from "../../components/products";
+import { CartItem } from "./cart-item";
 import { useNavigate } from "react-router-dom";
-
 import "./cart.css";
 
 export const Cart = () => {
-  const { cartItems, getTotalCartAmount } = useContext(ShopContext);
+  const { 
+    getTotalCartAmount, 
+    clearCart, 
+    getCartItems, 
+    loading 
+  } = useContext(ShopContext);
+  
   const totalAmount = getTotalCartAmount();
+  const cartItems = getCartItems();
   const navigate = useNavigate();
-  const [cartProductList, setCartProductList] = useState([]);
-
-  // ✅ Update cartProductList whenever cartItems changes
-  useEffect(() => {
-    const selectedProducts = PRODUCTS.filter((product) => cartItems[product.id] > 0).map((product) => ({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      quantity: cartItems[product.id],
-    }));
-
-    setCartProductList(selectedProducts);
-    localStorage.setItem("cart-products", JSON.stringify(selectedProducts));
-  }, [cartItems]);
 
   // ✅ WhatsApp Order Function
   const whatsapp = () => {
-    const messageLines = cartProductList.map(
-      (item) => `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`
-    );
-    const message = `Hello! I want to order:\n\n${messageLines.join("\n")}\n\nSubtotal: ₹${totalAmount}`;
-    const url = `https://wa.me/918511037477?text=${encodeURIComponent(message)}`;
+    if (cartItems.length === 0) return;
+    
+    // Create order summary for WhatsApp
+    let message = "🛒 *New Order Request*\n\n";
+    message += "*Items:*\n";
+    
+    cartItems.forEach((item, index) => {
+      message += `${index + 1}. ${item.name}\n`;
+      message += `   Quantity: ${item.quantity}\n`;
+      message += `   Price: ₹${item.price} each\n`;
+      message += `   Subtotal: ₹${item.price * item.quantity}\n\n`;
+    });
+    
+    message += `*Total Amount: ₹${totalAmount}*\n\n`;
+    message += "Please confirm this order. Thank you!";
+    
+    const encodedMessage = encodeURIComponent(message);
+    const url = `https://wa.me/918511037477?text=${encodedMessage}`;
     window.open(url, "_blank");
   };
 
-  return (
-    <div className="min-h-screen bg-[#1c1f2a] text-white px-4 sm:px-10 pt-8">
-      <h1 className="text-3xl font-bold text-center mb-8">🛒 Your Cart</h1>
+  // Loading state
+  if (loading) {
+    return (
+      <div className="cart flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
+        <span className="ml-4 text-lg text-gray-600">Loading cart...</span>
+      </div>
+    );
+  }
 
-      {cartProductList.length > 0 ? (
+  return (
+    <div className="cart">
+      <div className="cart-header text-center mb-8">
+        <h1 className="font-poppins text-4xl font-bold text-[#FF4655] m-4">
+          Your Cart
+        </h1>
+      </div>
+
+      {cartItems.length > 0 ? (
         <>
-          {/* ✅ Product List */}
-          <div className="space-y-4">
-            {cartProductList.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center bg-[#2a2d3e] p-4 rounded-lg shadow-md"
-              >
-                <img
-                  src={item.imageUrl}
-                  alt={item.name}
-                  className="w-20 h-20 object-contain rounded-md mr-4"
-                />
-                <div className="flex-1">
-                  <h2 className="text-lg font-semibold">{item.name}</h2>
-                  <p className="text-sm text-gray-300">Price: ₹{item.price}</p>
-                  <p className="text-sm text-gray-300">Qty: {item.quantity}</p>
-                </div>
-                <p className="text-lg font-bold text-green-400">
-                  ₹{item.price * item.quantity}
-                </p>
-              </div>
+          {/* Cart Items */}
+          <div className="cart-items">
+            {cartItems.map((item) => (
+              <CartItem key={item.id} data={item} />
             ))}
           </div>
 
-          {/* ✅ Subtotal + Buttons */}
-          <div className="mt-10 text-center space-y-4">
-            <p className="text-xl font-semibold text-green-400">
-              Subtotal: ₹{totalAmount}
-            </p>
-
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button
+          {/* Cart Summary */}
+          <div className="cart-summary flex flex-col justify-center items-center mt-8 p-6 bg-gray-50 rounded-lg">
+            <div className="mb-4">
+              <p className="text-lg text-gray-600">
+                Items in cart: {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+              </p>
+            </div>
+            <div className="mb-6">
+              <p className="text-2xl text-green-500 font-bold">
+                Subtotal: ₹{totalAmount}
+              </p>
+            </div>
+            
+            <div className="flex gap-4">
+              <button 
+                className="btn" 
                 onClick={whatsapp}
-                className="px-8 py-3 bg-[#FF4655] hover:bg-[#e03c49] text-white font-bold rounded-md shadow-md transition"
+                disabled={cartItems.length === 0}
               >
-                Place Order on WhatsApp
+                <span className="btn__inner">
+                  <span className="btn__slide"></span>
+                  <span className="btn__content text-secondary">
+                    ORDER VIA WHATSAPP
+                  </span>
+                </span>
               </button>
 
-              <button
-                onClick={() => navigate("/shop")}
-                className="px-8 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-md transition"
+              <button 
+                className="btn bg-gray-500 hover:bg-gray-600" 
+                onClick={clearCart}
               >
-                Continue Shopping
+                <span className="btn__inner">
+                  <span className="btn__slide"></span>
+                  <span className="btn__content text-secondary">
+                    CLEAR CART
+                  </span>
+                </span>
+
               </button>
             </div>
           </div>
         </>
       ) : (
-        // ✅ Empty cart message
-        <div className="text-center mt-20">
-          <p className="text-lg text-gray-400 mb-6">Your cart is empty.</p>
-          <button
+        <div className="blankCart text-center py-12">
+          <div className="mb-8">
+            <svg 
+              className="mx-auto h-24 w-24 text-gray-400 mb-4" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 1.5M7 13l1.5 1.5M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" 
+              />
+            </svg>
+            <h2 className="text-2xl font-semibold text-gray-600 mb-2">
+              Your cart is empty
+            </h2>
+            <p className="text-gray-500 mb-8">
+              Add some products to your cart to get started
+            </p>
+          </div>
+          
+          <button 
+            className="btn mt-16" 
             onClick={() => navigate("/shop")}
-            className="px-6 py-3 bg-[#FF4655] hover:bg-[#e03c49] text-white font-semibold rounded-md transition"
           >
-            Continue Shopping
+            <span className="btn__inner">
+              <span className="btn__slide"></span>
+              <span className="btn__content text-secondary">
+                CONTINUE SHOPPING
+              </span>
+            </span>
           </button>
         </div>
       )}

@@ -1,21 +1,27 @@
 // src/pages/AdminLogin.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../components/context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+
+  // Check if already authenticated - if so, redirect immediately
+  const isAuthenticated = localStorage.getItem("admin-auth") === "true";
+  if (isAuthenticated) {
+    return <Navigate to="/admin" replace />;
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setError(""); // Clear previous errors
 
     // Dummy credentials – use real auth in production
     if (email === "admin@example.com" && password === "admin123") {
-      localStorage.setItem("admin-auth", "true");
+      localStorage.setItem("admin-auth", "true"); // Store as string "true"
       navigate("/admin");
     } else {
       setError("Invalid email or password");

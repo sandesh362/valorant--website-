@@ -26,4 +26,3 @@ const db = getFirestore(app);
 
 export { storage, db };
 
-
