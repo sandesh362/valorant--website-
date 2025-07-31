@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ShopContext } from "../../components/context/shop-context";
 import { PRODUCTS } from "../../products";
 import { Product } from "./product";
 import RangeSlider from 'react-range-slider-input';
@@ -6,47 +8,26 @@ import 'react-range-slider-input/dist/style.css';
 import './shop.css'; 
 
 export const Shop = () => {
-  // Slider values for min and max price range
-  const [priceRange, setPriceRange] = useState([0, 15000]);
-
-  // State to hold filtered products
+  const [priceRange, setPriceRange] = useState([0, 100000]);
   const [filteredProducts, setFilteredProducts] = useState(PRODUCTS);
 
-  // useEffect to automatically filter and sort products when priceRange changes
+  // Get cart and navigation
+  const { cartItems } = useContext(ShopContext);
+  const navigate = useNavigate();
+  const hasItems = Object.values(cartItems).some((count) => count > 0);
+
   useEffect(() => {
     const filteredAndSortedProducts = PRODUCTS.filter(
       (product) =>
         product.price >= priceRange[0] && product.price <= priceRange[1]
-    ).sort((a, b) => a.price - b.price); // Sorting by price in ascending order
+    ).sort((a, b) => a.price - b.price);
 
     setFilteredProducts(filteredAndSortedProducts);
-  }, [priceRange]); // Runs whenever priceRange changes
+  }, [priceRange]);
 
   return (
     <div className="shop">
-      <div className="shopTitle">
-        {/* <h1>Our Shop</h1> */}
-      </div>
-
-      {/* Price Filter Section with Single Range Slider */}
-      <div className="price-filter">
-        <div className="slider-container">
-          <label>
-            Price Range: ₹{priceRange[0]} - ₹{priceRange[1]}
-          </label>
-          <RangeSlider
-            min={0}
-            max={15000}
-            step={3000}
-            value={priceRange}
-            onInput={setPriceRange}
-            thumbsDisabled={[false, false]} // Both ends can be moved
-            rangeSlideDisabled={false} // Enable range selection
-          />
-        </div>
-      </div>
-
-      {/* Display filtered products */}
+      {/* ...existing code... */}
       <div className="products">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => <Product key={product.id} data={product} />)
@@ -54,6 +35,15 @@ export const Shop = () => {
           <p>No products found in this price range.</p>
         )}
       </div>
+      {/* GLOBAL FLOATING CHECKOUT BUTTON */}
+      {hasItems && (
+        <div
+          className="fixed bottom-6 right-6 bg-[#FF4655] hover:bg-[#e03c49] text-white px-4 py-3 rounded-lg shadow-lg cursor-pointer z-50"
+          onClick={() => navigate("/cart")}
+        >
+          🛒 Checkout Cart
+        </div>
+      )}
     </div>
   );
 };

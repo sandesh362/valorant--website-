@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../../components/context/shop-context";
 import { CartItem } from "./cart-item";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ export const Cart = () => {
   const cartItems = getCartItems();
   const navigate = useNavigate();
 
+  // ✅ WhatsApp Order Function
   const whatsapp = () => {
     if (cartItems.length === 0) return;
     
@@ -102,6 +103,7 @@ export const Cart = () => {
                     CLEAR CART
                   </span>
                 </span>
+
               </button>
             </div>
           </div>

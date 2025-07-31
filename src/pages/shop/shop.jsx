@@ -25,6 +25,7 @@ export const Shop = () => {
       if (priceRange[0] === 0 && priceRange[1] === 100000) {
         setPriceRange([minPrice, Math.max(maxPrice, 1000)]);
       }
+
     }
   }, [products, priceRange]);
 

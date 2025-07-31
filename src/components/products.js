@@ -54,6 +54,7 @@ export const PRODUCTS = [
   {
     id: 1,
     price: 800.0,
+    name: "Product 1",    
     productImage: product1,
   },
   {
