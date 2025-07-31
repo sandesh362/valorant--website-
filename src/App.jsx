@@ -1,13 +1,10 @@
+// src/App.jsx (Fixed version)
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
-// import CTA from "./components/layout/CTA";
 import Footer from "./components/layout/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Agents from "./components/pages/Agents";
-// import Agent from "./components/pages/Agent";
-// import Maps from "./components/pages/Maps";
-import { ShopContextProvider } from "./components/context/shop-context"
-import { Shop } from "./pages/shop/shop"
+import { ShopContextProvider } from "./components/context/shop-context";
+import { Shop } from "./pages/shop/shop";
 import { Cart } from "./pages/cart/cart";
 import Contact from "./pages/contact/Contact";
 import About from "./pages/about/About";
@@ -16,30 +13,43 @@ import Reviews from "./pages/reviews/Reviews";
 import TermsAndServices from "./pages/about/TermsAndServices";
 import PrivacyNotes from "./pages/about/privacy";
 import CookiePreference from "./pages/about/cokkie";
-import Blog from "./components/pages/home/Blog"
-
-
+import Blog from "./components/pages/home/Blog";
+import Admin from './pages/Admin.jsx';
+import ProtectedRoute from "./components/utils/ProtectedRoute.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx"; // Fixed import path
 
 const App = () => {
-
   return (
     <ShopContextProvider>
       <Router>
         <div className="w-full overflow-hidden">
           <Navbar />
           <Routes>
-            <Route excat path="/" element={<Home />} />
+            <Route exact path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/aboutus" element={<About />} />
             <Route path="/news" element={<News />} />
-            <Route path="/reviews" element={<Reviews />} /> 
-            <Route path="/TermsAndServices" element={<TermsAndServices/>} /> 
-            <Route path="/privacy" element={<PrivacyNotes/>} /> 
-            <Route path="/CookiePreference" element={<CookiePreference/>} /> 
-            <Route path="/blogs" element={<Blog />}/>
-           
+            <Route path="/reviews" element={<Reviews />} />
+            <Route path="/TermsAndServices" element={<TermsAndServices />} />
+            <Route path="/privacy" element={<PrivacyNotes />} />
+            <Route path="/CookiePreference" element={<CookiePreference />} />
+            <Route path="/blogs" element={<Blog />} />
+            
+            {/* Protected admin route */}
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              } 
+            />
+            
+            {/* Admin login route */}
+            <Route path="/admin-login" element={<AdminLogin />} />
+            
             <Route path="*" element={<h1>You Lost In the World of Valorant 😀</h1>} />
           </Routes>
           <Footer />
