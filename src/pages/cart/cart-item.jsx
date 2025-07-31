@@ -19,9 +19,9 @@ export const CartItem = ({ data }) => {
     <div className="bg-gray-900 w-[90%] sm:w-[30%] p-6 m-6 rounded-xl flex sm:flex-row flex-col shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
       {/* Product Image */}
       <div className="flex-shrink-0">
-        {data.productImage ? (
+        {data.imageUrl ? (
           <img
-            src={data.productImage}
+            src={data.imageUrl}
             alt={data.name}
             className="w-100 h-60 object-cover rounded-lg border-2 border-red-500"
           />
