@@ -17,7 +17,7 @@ import Blog from "./components/pages/home/Blog";
 import Admin from './pages/Admin.jsx';
 import ProtectedRoute from "./components/utils/ProtectedRoute.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx"; // Fixed import path
-import Store from "./pages/Vp-store/store.jsx";  // Fixed import path
+import Store from "./pages/Vp-store/Store.jsx";  // Fixed import path
 
 const App = () => {
   return (
