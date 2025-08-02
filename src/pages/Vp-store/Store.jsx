@@ -1,47 +1,31 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Plus, Minus, Trash2, MessageCircle, Phone } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, MessageCircle, Phone, User } from 'lucide-react';
 
 const Store = () => {
   const [notification, setNotification] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [riotId, setRiotId] = useState('');
 
   const vpPackages = [
-    { id: 'vp_475', vp: 475, price: 350, type: 'VP' },
-    { id: 'vp_1000', vp: 1000, price: 750, type: 'VP' },
-    { id: 'vp_1475', vp: 1475, price: 1100, type: 'VP' },
-    { id: 'vp_2050', vp: 2050, price: 1400, popular: true, type: 'VP' },
-    { id: 'vp_2525', vp: 2525, price: 1750, type: 'VP' },
-    { id: 'vp_3050', vp: 3050, price: 2150, type: 'VP' },
-    { id: 'vp_3650', vp: 3650, price: 2550, type: 'VP' },
-    { id: 'vp_4125', vp: 4125, price: 2900, type: 'VP' },
-    { id: 'vp_4650', vp: 4650, price: 3300, type: 'VP' },
-    { id: 'vp_5350', vp: 5350, price: 3500, type: 'VP' },
-    { id: 'vp_5825', vp: 5825, price: 3850, type: 'VP' },
-    { id: 'vp_6380', vp: 6380, price: 4250, type: 'VP' },
-    { id: 'vp_7400', vp: 7400, price: 4900, bestValue: true, type: 'VP' },
-    { id: 'vp_8400', vp: 8400, price: 5650, type: 'VP' },
-    { id: 'vp_9000', vp: 9000, price: 6050, type: 'VP' },
-    { id: 'vp_10000', vp: 10000, price: 6800, type: 'VP' },
-    { id: 'vp_10700', vp: 10700, price: 6900, type: 'VP' },
-    { id: 'vp_11175', vp: 11175, price: 7250, type: 'VP' },
-    { id: 'vp_12750', vp: 12750, price: 8300, type: 'VP' },
-    { id: 'vp_14350', vp: 14350, price: 9450, type: 'VP' },
-    { id: 'vp_16050', vp: 16050, price: 10400, type: 'VP' }
-  ];
-
-  const radiPacks = [
-    { id: 'rp_20', rp: 20, price: 200, type: 'RP' },
-    { id: 'rp_40', rp: 40, price: 350, type: 'RP' },
-    { id: 'rp_80', rp: 80, price: 650, popular: true, type: 'RP' },
-    { id: 'rp_160', rp: 160, price: 1200, type: 'RP' }
+    { id: 'vp_475', vp: 475, price: 199, type: 'VP' },
+    { id: 'vp_1000', vp: 1000, price: 399, type: 'VP' },
+    { id: 'vp_2050', vp: 2050, price: 799, popular: true, type: 'VP' },
+    { id: 'vp_3650', vp: 3650, price: 1399, type: 'VP' },
+    { id: 'vp_5350', vp: 5350, price: 1999, type: 'VP' },
+    { id: 'vp_11000', vp: 11000, price: 3999, bestValue: true, type: 'VP' }
   ];
 
   const battlePass = { id: 'bp_1000', name: 'Battle Pass', vp: 1000, price: 750, type: 'BP' };
 
   // Cart Functions
   const addToCart = (item) => {
+    if (!riotId.trim()) {
+      showNotificationMsg('Please enter your Riot ID first!');
+      return;
+    }
+
     const existingItem = cart.find(cartItem => cartItem.id === item.id);
     
     if (existingItem) {
@@ -99,15 +83,13 @@ const Store = () => {
         let itemName;
         if (item.type === 'BP') {
           itemName = `${item.name} (${item.vp} VP Value)`;
-        } else if (item.type === 'RP') {
-          itemName = `${item.rp} Radianite Points`;
         } else {
           itemName = `${item.vp} Valorant Points`;
         }
         return `• ${itemName} x${item.quantity} - ₹${(item.price * item.quantity).toLocaleString()}`;
       }).join('\n');
       
-      message = `Hi! I want to purchase the following items:\n\n${itemsList}\n\nTotal: ₹${getTotalPrice().toLocaleString()}\n\nPlease help me with the payment process.`;
+      message = `Hi! I want to purchase the following items:\n\nRiot ID: ${riotId}\n\n${itemsList}\n\nTotal: ₹${getTotalPrice().toLocaleString()}\n\nPlease help me with the payment process.`;
     } else {
       message = `Hi! I'm interested in purchasing Valorant Points. Please help me with the available options and payment process.`;
     }
@@ -128,7 +110,7 @@ const Store = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-red-900 text-white">
       {/* Fixed Cart Button */}
-      <div className="fixed top-6 right-6 z-50">
+      <div className="fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setShowCart(!showCart)}
           className="bg-gradient-to-r from-red-500 to-red-600 p-4 rounded-full shadow-2xl hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-110 flex items-center gap-2"
@@ -168,6 +150,16 @@ const Store = () => {
                 </div>
               ) : (
                 <>
+                  {/* Riot ID Display */}
+                  {riotId && (
+                    <div className="bg-gray-700 p-4 rounded-lg mb-6">
+                      <div className="flex items-center gap-2 text-blue-400">
+                        <User size={18} />
+                        <span className="font-bold">Riot ID: {riotId}</span>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="space-y-4 mb-6">
                     <h3 className="text-lg font-semibold text-gray-300">
                       Cart Items ({getTotalItems()})
@@ -178,9 +170,7 @@ const Store = () => {
                         <div className="flex justify-between items-start mb-3">
                           <div>
                             <h4 className="font-bold text-white">
-                              {item.type === 'BP' ? item.name : 
-                               item.type === 'RP' ? `${item.rp} Radianite Points` : 
-                               `${item.vp} Valorant Points`}
+                              {item.type === 'BP' ? item.name : `${item.vp} Valorant Points`}
                             </h4>
                             {item.type === 'BP' && (
                               <p className="text-sm text-gray-400">{item.vp} VP Value</p>
@@ -273,7 +263,7 @@ const Store = () => {
             VALORANT POINTS STORE
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Get VP & Radianite Points instantly • Philippines ID Only • UPI/Crypto Accepted
+            Get VP instantly • Philippines ID Only • UPI/Crypto Accepted
           </p>
           <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <span className="bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 rounded-full text-sm font-bold">
@@ -289,13 +279,48 @@ const Store = () => {
         </div>
       </div>
 
+      {/* Riot ID Input Section */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-red-500/10 to-blue-500/10 border-2 border-red-500/20 p-8 rounded-2xl backdrop-blur-sm">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold text-red-400 mb-2">1. Enter your Riot ID</h2>
+              <p className="text-gray-300">Enter your Riot ID to proceed with VP purchase</p>
+            </div>
+            
+            <div className="relative">
+              <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                value={riotId}
+                onChange={(e) => setRiotId(e.target.value)}
+                placeholder="Enter your Riot ID (Example: username#TAG)"
+                className="w-full bg-gray-800 border-2 border-gray-600 rounded-xl px-12 py-4 text-white placeholder-gray-400 focus:border-red-500 focus:outline-none transition-colors text-lg"
+              />
+            </div>
+            
+            {riotId && (
+              <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="flex items-center gap-2 text-green-400">
+                  <span className="text-xl">✅</span>
+                  <span className="font-bold">Riot ID: {riotId}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* VP Packages Section */}
-      <div className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12 text-red-400">
-          Valorant Points Packages
-        </h2>
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-red-400 mb-2">2. Select Recharge</h2>
+          <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-2 rounded-full inline-block text-sm font-bold">
+            🔥 1005 Items bought in the last hour
+          </div>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
           {/* Battle Pass Special Card */}
           <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 p-6 rounded-2xl text-black relative overflow-hidden transform hover:scale-105 transition-all duration-300 shadow-2xl">
             <div className="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8">
@@ -345,10 +370,10 @@ const Store = () => {
                 <div className="absolute inset-0 bg-blue-500 opacity-20 rounded-full"></div>
               </div>
               
-              <div className="relative z-10">
-                <div className="text-4xl font-bold text-blue-400 mb-2">{pack.vp.toLocaleString()}</div>
+              <div className="relative z-10 text-center">
+                <div className="text-4xl font-bold text-blue-400 mb-2">{pack.vp} VP</div>
                 <div className="text-gray-300 mb-4">Valorant Points</div>
-                <div className="text-3xl font-bold text-red-400 mb-6">₹{pack.price.toLocaleString()}</div>
+                <div className="text-3xl font-bold text-red-400 mb-6">₹{pack.price}</div>
                 
                 <div className="space-y-2">
                   <button 
@@ -367,49 +392,6 @@ const Store = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Radianite Section */}
-        <div className="bg-gradient-to-r from-blue-500/5 to-purple-500/5 py-16 px-6 rounded-3xl mt-20 border border-blue-500/20">
-          <h2 className="text-4xl font-bold text-center mb-12 text-blue-400">
-            Radianite Points
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {radiPacks.map((pack) => (
-              <div 
-                key={pack.id}
-                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-500/20 p-6 rounded-2xl hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transform hover:scale-105 transition-all duration-300 relative backdrop-blur-sm"
-              >
-                {pack.popular && (
-                  <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-400 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold transform rotate-12 shadow-lg">
-                    ⭐ POPULAR
-                  </div>
-                )}
-                
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-400 mb-2">{pack.rp}</div>
-                  <div className="text-gray-300 mb-4">Radianite Points</div>
-                  <div className="text-2xl font-bold text-red-400 mb-6">₹{pack.price}</div>
-                  
-                  <div className="space-y-2">
-                    <button 
-                      onClick={() => addToCart(pack)}
-                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 py-2.5 rounded-xl font-bold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
-                    >
-                      <ShoppingCart size={18} /> Add to Cart
-                    </button>
-                    <button 
-                      onClick={() => handleWhatsAppOrder(false)}
-                      className="w-full bg-gradient-to-r from-green-500 to-green-600 py-2.5 rounded-xl font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
-                    >
-                      <MessageCircle size={18} /> Order Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Contact Section */}
