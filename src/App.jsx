@@ -17,6 +17,7 @@ import Blog from "./components/pages/home/Blog";
 import Admin from './pages/Admin.jsx';
 import ProtectedRoute from "./components/utils/ProtectedRoute.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx"; // Fixed import path
+import Store from "./pages/Vp-store/store.jsx";  // Fixed import path
 
 const App = () => {
   return (
@@ -36,6 +37,8 @@ const App = () => {
             <Route path="/privacy" element={<PrivacyNotes />} />
             <Route path="/CookiePreference" element={<CookiePreference />} />
             <Route path="/blogs" element={<Blog />} />
+          
+            <Route path="/store" element={<Store />} /> {/* Changed to capital 'Store' */}
             
             {/* Protected admin route */}
             <Route 

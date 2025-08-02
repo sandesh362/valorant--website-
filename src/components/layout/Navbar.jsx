@@ -7,9 +7,14 @@ import { Link } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
 import { Logo } from "../../assets";
 
-
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+
+  // Add VP Store to navigation links dynamically
+  const allNavLinks = [
+    ...navLinks,
+    { id: "/store", title: "VP Store" }
+  ];
 
   return (
     <nav className="navbar h-[80px]">
@@ -31,11 +36,16 @@ const Navbar = () => {
 
           <div className="flex h-[80px]">
             <ul className="list-none md:flex hidden justify-end items-center ml-10">
-              {navLinks.map((navLink, index) => (
+              {allNavLinks.map((navLink, index) => (
                 <li
                   key={navLink.id}
-                  className={`font-poppins font-normal relative cursor-pointer text-center text-[13px] hover:bg-[gray]/40 px-4 py-2 rounded-[8px] uppercase ${index === navLinks.length - 1 ? "mr-0" : "mr-6"
-                    } text-white`}
+                  className={`font-poppins font-normal relative cursor-pointer text-center text-[13px] hover:bg-[gray]/40 px-4 py-2 rounded-[8px] uppercase ${
+                    index === allNavLinks.length - 1 ? "mr-0" : "mr-6"
+                  } text-white ${
+                    navLink.id === "/store" 
+                      ? "bg-gradient-to-r from-red-500/20 to-blue-500/20 border border-red-500/30 hover:border-red-500/60" 
+                      : ""
+                  }`}
                 >
                   {navLink.id.length > 1 && navLink.id[1] === "#" ? (
                     <a href={`${navLink.id}`} className=" h-[80px]">
@@ -44,6 +54,9 @@ const Navbar = () => {
                   ) : (
                     <Link to={`${navLink.id}`} className=" h-[80px]">
                       {navLink.title}
+                      {navLink.id === "/store" && (
+                        <span className="ml-1 text-red-400">⚡</span>
+                      )}
                     </Link>
                   )}
                 </li>
@@ -103,27 +116,49 @@ const Navbar = () => {
             </div>
             <div className="flex-col p-10 bg-[#292929] h-full">
               <ul className="list-none flex flex-col justify-end items-start flex-1">
-                {navLinks.map((navLink, index) => (
+                {allNavLinks.map((navLink, index) => (
                   <li
                     key={navLink.id}
-                    className={`font-poppins font-normal cursor-pointer text-[16px] text-white my-2 flex justify-end`}
+                    className={`font-poppins font-normal cursor-pointer text-[16px] text-white my-2 flex justify-end ${
+                      navLink.id === "/store" 
+                        ? "bg-gradient-to-r from-red-500/20 to-blue-500/20 rounded-lg border border-red-500/30" 
+                        : ""
+                    }`}
                   >
-                    <a
-                      href={`${navLink.id}`}
-                      className="uppercase font-semibold p-4"
-                    >
-                      {navLink.title}
-                    </a>
+                    {navLink.id.length > 1 && navLink.id[1] === "#" ? (
+                      <a
+                        href={`${navLink.id}`}
+                        className="uppercase font-semibold p-4"
+                        onClick={() => setToggle(false)}
+                      >
+                        {navLink.title}
+                        {navLink.id === "/store" && (
+                          <span className="ml-2 text-red-400">⚡</span>
+                        )}
+                      </a>
+                    ) : (
+                      <Link
+                        to={`${navLink.id}`}
+                        className="uppercase font-semibold p-4"
+                        onClick={() => setToggle(false)}
+                      >
+                        {navLink.title}
+                        {navLink.id === "/store" && (
+                          <span className="ml-2 text-red-400">⚡</span>
+                        )}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
-              {/* <div href="/cart" className="text-center font-semibold mt-8 p-4 flex justify-center bg-primary rounded-[12px] cursor-pointer">
-                <div href="/cart" className="text-[16px]">Cart</div>
-              </div> */}
-              <Link to="/cart" className="text-center font-semibold mt-8 p-4 flex justify-center bg-primary rounded-[12px] cursor-pointer">
+              
+              <Link 
+                to="/cart" 
+                className="text-center font-semibold mt-8 p-4 flex justify-center bg-primary rounded-[12px] cursor-pointer"
+                onClick={() => setToggle(false)}
+              >
                 <div className="text-[16px]">Cart</div>
               </Link>
-
             </div>
           </div>
         </div>
