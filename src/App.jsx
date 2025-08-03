@@ -1,5 +1,6 @@
 // src/App.jsx (Fixed version)
 import Analytics from "./components/analytics/Analytics";
+
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
 import Footer from "./components/layout/Footer";
