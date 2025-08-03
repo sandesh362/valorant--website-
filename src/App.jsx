@@ -1,4 +1,5 @@
 // src/App.jsx (Fixed version)
+import Analytics from "./components/analytics/Analytics";
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
 import Footer from "./components/layout/Footer";
@@ -19,11 +20,13 @@ import ProtectedRoute from "./components/utils/ProtectedRoute.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx"; // Fixed import path
 import Store from "./pages/Vp-store/Store.jsx";  // Fixed import path
 
+
 const App = () => {
   return (
     <ShopContextProvider>
       <Router>
         <div className="w-full overflow-hidden">
+          <Analytics /> {/* Google Analytics tracking */}
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
