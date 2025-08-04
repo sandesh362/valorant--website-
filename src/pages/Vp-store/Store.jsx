@@ -14,7 +14,7 @@ const Store = () => {
     { id: 'vp_2050', vp: 2050, price: 1400, popular: true, type: 'VP' },
     { id: 'vp_3650', vp: 3650, price: 2550, type: 'VP' },
     { id: 'vp_5350', vp: 5350, price: 3500, type: 'VP' },
-    { id: 'vp_11000', vp: 11000, price: 6900, bestValue: true, type: 'VP' }
+    { id: 'vp_11000', vp: 10700, price: 6900, bestValue: true, type: 'VP' }
   ];
 
   const battlePass = { id: 'bp_1000', name: 'Battle Pass', vp: 1000, price: 750, type: 'BP' };
