@@ -9,12 +9,12 @@ const Store = () => {
   const [riotId, setRiotId] = useState('');
 
   const vpPackages = [
-    { id: 'vp_475', vp: 475, price: 199, type: 'VP' },
-    { id: 'vp_1000', vp: 1000, price: 399, type: 'VP' },
-    { id: 'vp_2050', vp: 2050, price: 799, popular: true, type: 'VP' },
-    { id: 'vp_3650', vp: 3650, price: 1399, type: 'VP' },
-    { id: 'vp_5350', vp: 5350, price: 1999, type: 'VP' },
-    { id: 'vp_11000', vp: 11000, price: 3999, bestValue: true, type: 'VP' }
+    { id: 'vp_475', vp: 475, price: 350, type: 'VP' },
+    { id: 'vp_1000', vp: 1000, price: 750, type: 'VP' },
+    { id: 'vp_2050', vp: 2050, price: 1400, popular: true, type: 'VP' },
+    { id: 'vp_3650', vp: 3650, price: 2550, type: 'VP' },
+    { id: 'vp_5350', vp: 5350, price: 3500, type: 'VP' },
+    { id: 'vp_11000', vp: 11000, price: 6900, bestValue: true, type: 'VP' }
   ];
 
   const battlePass = { id: 'bp_1000', name: 'Battle Pass', vp: 1000, price: 750, type: 'BP' };
