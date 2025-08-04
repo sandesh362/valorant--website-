@@ -2,17 +2,7 @@ import React, { useContext } from "react";
 import { ShopContext } from "../../components/context/shop-context";
 
 export const CartItem = ({ data }) => {
-  const { cartItems, addToCart, removeFromCart, updateCartItemCount } =
-    useContext(ShopContext);
-
-  const quantity = cartItems[data.id] || data.quantity || 0;
-
-  const handleQuantityChange = (e) => {
-    const newValue = parseInt(e.target.value) || 0;
-    updateCartItemCount(newValue, data.id);
-  };
-
-  if (quantity === 0) return null;
+  const { updateCartItemCount } = useContext(ShopContext);
 
   return (
     <div
@@ -72,72 +62,37 @@ export const CartItem = ({ data }) => {
             <p className="text-green-400 text-3xl font-bold">
               ₹{data.price || 0}
             </p>
-
-            {quantity > 1 && (
-              <div className="text-right">
-                <p className="text-yellow-400 text-lg font-semibold">
-                  Qty: {quantity}
-                </p>
-                <p className="text-green-400 text-xl font-bold">
-                  Total: ₹{(data.price || 0) * quantity}
-                </p>
+            
+            {/* Unique Item Badge */}
+            <div className="flex items-center space-x-2">
+              <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold">
+                UNIQUE ACCOUNT
               </div>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="space-y-4">
-          {/* Quantity Controls */}
-          <div className="flex items-center gap-4">
-            <span className="text-gray-300 font-medium">Quantity:</span>
-            <div className="flex items-center gap-2">
-              <button
-                className="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-lg flex items-center justify-center transition-colors duration-200 font-bold text-lg"
-                onClick={() => removeFromCart(data.id)}
-              >
-                −
-              </button>
-
-              <input
-                type="number"
-                min="0"
-                value={quantity}
-                onChange={handleQuantityChange}
-                className="w-20 h-10 text-center border-2 border-gray-600 focus:border-red-500 rounded-lg bg-[#1e2532] text-white text-lg font-semibold outline-none transition-colors duration-200"
-              />
-
-              <button
-                className="w-10 h-10 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center justify-center transition-colors duration-200 font-bold text-lg"
-                onClick={() => addToCart(data.id)}
-              >
-                +
-              </button>
-            </div>
-          </div>
-
-          {/* Remove Button */}
-          <div className="flex justify-end">
-            <button
-              onClick={() => updateCartItemCount(0, data.id)}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center space-x-2 font-semibold uppercase tracking-wide transform hover:scale-105"
+        {/* Controls - Only Remove Button */}
+        <div className="flex justify-end">
+          <button
+            onClick={() => updateCartItemCount(0, data.id)}
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center space-x-2 font-semibold uppercase tracking-wide transform hover:scale-105"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-              <span>Remove from Cart</span>
-            </button>
-          </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+            <span>Remove from Cart</span>
+          </button>
         </div>
       </div>
     </div>

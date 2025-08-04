@@ -22,9 +22,7 @@ export const Cart = () => {
 
     cartItems.forEach((item, index) => {
       message += `${index + 1}. ${item.name}\n`;
-      message += `   Quantity: ${item.quantity}\n`;
-      message += `   Price: ₹${item.price} each\n`;
-      message += `   Subtotal: ₹${item.price * item.quantity}\n\n`;
+      message += `   Price: ₹${item.price}\n\n`;
     });
 
     message += `*Total Amount: ₹${totalAmount}*\n\n`;
@@ -78,7 +76,7 @@ export const Cart = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <h2 className="text-2xl font-semibold text-white mb-6">
-                  Cart Items ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
+                  Cart Items ({cartItems.length})
                 </h2>
                 <div className="space-y-6">
                   {cartItems.map((item) => (
@@ -99,9 +97,7 @@ export const Cart = () => {
                   {/* Summary Details */}
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between text-gray-300">
-                      <span>
-                        Items ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})
-                      </span>
+                      <span>Items ({cartItems.length})</span>
                       <span className="text-white">₹{totalAmount}</span>
                     </div>
                     <div className="flex justify-between text-gray-300">
@@ -208,7 +204,7 @@ export const Cart = () => {
                 Your cart is empty
               </h2>
               <p className="text-gray-400 text-lg mb-12">
-                Add some products to your cart to get started
+                Add some accounts to your cart to get started
               </p>
             </div>
 
