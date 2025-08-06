@@ -1,9 +1,7 @@
-import styles, { layout } from "../../style";
-import icon from "./icon.svg";
-import "./home.css";
+import React from 'react';
 
 const News = () => (
-  <div className={`bg-black ${styles.paddingX} ${styles.flexStart} relative overflow-hidden`}>
+  <div className="bg-black px-4 md:px-8 lg:px-16 flex justify-center relative overflow-hidden">
     {/* Animated Valorant-style background */}
     <div className="absolute inset-0 opacity-10">
       <div className="absolute top-20 left-10 w-64 h-64 border border-[#FF4655] transform rotate-45 animate-pulse"></div>
@@ -13,20 +11,17 @@ const News = () => (
       <div className="absolute bottom-1/4 left-1/2 w-40 h-40 border border-[#FFAA00] rounded-full opacity-20 animate-spin" style={{animationDuration: '20s'}}></div>
     </div>
 
-    <div className={`${styles.boxWidth} sm:py-16 py-12 relative z-10`}>
+    <div className="max-w-7xl w-full py-12 sm:py-16 relative z-10">
       <section className="mx-4">
         {/* Hero Section */}
         <div className="text-center mb-20">
           <div className="relative inline-block mb-8">
-            <h1 className="relative text-transparent bg-clip-text bg-gradient-to-r from-[#FF4655] via-[#FF6B7A] to-[#00F5FF] font-black md:text-[100px] sm:text-[70px] text-[45px] tracking-wider transform hover:scale-105 transition-transform duration-300">
+            <h1 className="relative text-white font-black md:text-[80px] sm:text-[60px] text-[40px] tracking-wider transform hover:scale-105 transition-transform duration-300 drop-shadow-2xl mb-4">
               PREMIUM
             </h1>
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-[#FFAA00] font-bold md:text-2xl sm:text-xl text-lg">
+            <div className="text-[#FFAA00] font-bold md:text-2xl sm:text-xl text-lg">
               VALORANT ACCOUNTS
             </div>
-            {/* Valorant-style decorative lines */}
-            <div className="absolute -top-6 -left-12 w-20 h-1 bg-[#FF4655] transform -rotate-12"></div>
-            <div className="absolute -bottom-8 -right-12 w-20 h-1 bg-[#00F5FF] transform rotate-12"></div>
           </div>
           
           <p className="text-gray-300 text-xl max-w-4xl mx-auto font-light tracking-wide mb-8">
