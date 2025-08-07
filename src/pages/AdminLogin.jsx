@@ -20,7 +20,7 @@ const AdminLogin = () => {
     setError(""); // Clear previous errors
 
     // Dummy credentials – use real auth in production
-    if (email === "admin@example.com" && password === "admin123") {
+    if (email === "teamfuryvalorant@gmail.com" && password === "hopeforteamfury") {
       localStorage.setItem("admin-auth", "true"); // Store as string "true"
       navigate("/admin");
     } else {
