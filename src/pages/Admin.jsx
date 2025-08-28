@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { storage, db } from '../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
@@ -9,8 +10,27 @@ const Admin = () => {
     price: '',
     image: null
   });
-
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state to track login status
+  const auth = getAuth();
+
+  // This useEffect hook listens for changes in the user's authentication state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, update the state
+        setIsLoggedIn(true);
+        console.log("User is authenticated:", user.uid);
+      } else {
+        // No user is signed in, update the state
+        setIsLoggedIn(false);
+        console.log("No user is signed in.");
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, [auth]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +51,13 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // Check if the user is authenticated before proceeding
+    if (!isLoggedIn) {
+      alert('Please log in to add a product.');
+      setLoading(false);
+      return;
+    }
 
     if (!formData.name || !formData.price || !formData.image) {
       alert('Please fill in all fields.');
@@ -70,10 +97,25 @@ const Admin = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin-auth');
-    window.location.href = '/admin-login';
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem('admin-auth'); // Clear your custom local storage item
+      window.location.href = '/admin-login';
+    } catch (error) {
+      console.error('Error logging out:', error);
+      alert('❌ Error logging out. Please try again.');
+    }
   };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="max-w-md mx-auto mt-24 text-center">
+        <h2 className="text-2xl font-bold text-white">Please log in to access the admin panel.</h2>
+        <a href="/admin-login" className="mt-4 inline-block bg-[#FF4655] text-white py-2 px-4 rounded-md hover:bg-[#e03c49]">Go to Login</a>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-lg mx-auto mt-12 bg-[#1c1f2a] text-white p-8 rounded-lg shadow-lg">
