@@ -7,27 +7,26 @@ const Footer = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="pb-8 bg-[#0f1923]">
-      <ul className="py-4 flex flex-row items-center justify-center">
+    <footer className="border-t border-white/10 pb-8 bg-[#0f1923]">
+      <ul className="pt-8 pb-4 flex flex-row items-center justify-center">
         {socialMedia.map((social) => (
-          <li key={social.id} className="m-2 p-3 cursor-pointer bg-[#292929] rounded-[10px]">
+          <li key={social.id} className="m-2 p-3 cursor-pointer bg-[#292929] rounded-[10px] border border-white/5 transition hover:-translate-y-0.5 hover:bg-[#3a3a3a]">
             <a href={social.link} target="_blank" rel="noopener noreferrer">
               <img src={social.icon} alt={social.name} />
             </a>
           </li>
         ))}
       </ul>
-      <div className="flex justify-center align-center p-8">
-        <ul className="flex sm:flex-row flex-col justify-center align-center">
-          <li className="font-poppins font-semibold transition-all ease-in duration-300 relative cursor-pointer text-center text-[13px] hover:bg-[gray]/40 px-4 py-2 rounded-[8px] uppercase mr-6 text-white">
-            <a href="#" onClick={() => navigate("/privacy")}>PRIVACY NOTICE</a>
+      <div className="flex justify-center align-center px-6 py-5">
+        <ul className="flex sm:flex-row flex-col justify-center align-center gap-1">
+          <li className="font-poppins font-semibold transition-all ease-in duration-300 relative cursor-pointer text-center text-[13px] hover:bg-white/10 px-4 py-2 rounded-[8px] uppercase text-white">
+            <button onClick={() => navigate("/privacy")}>PRIVACY NOTICE</button>
           </li>
-          <li className="font-poppins font-semibold transition-all ease-in duration-300 relative cursor-pointer text-center text-[13px] hover:bg-[gray]/40 px-4 py-2 rounded-[8px] uppercase mr-6 text-white">
-            <a href="#" onClick={() => navigate("/TermsAndServices")}>TERMS OF SERVICE</a>
+          <li className="font-poppins font-semibold transition-all ease-in duration-300 relative cursor-pointer text-center text-[13px] hover:bg-white/10 px-4 py-2 rounded-[8px] uppercase text-white">
+            <button onClick={() => navigate("/TermsAndServices")}>TERMS OF SERVICE</button>
           </li>
-          <li className="font-poppins font-semibold transition-all ease-in duration-300 relative cursor-pointer text-center text-[13px] hover:bg-[gray]/40 px-4 py-2 rounded-[8px] uppercase mr-6 text-white">
-           {/* <a href="#"> onClick={() => navigate("/CookiePreference")}>COOKIE PREFERENCES</a> */}
-            <a href="#" onClick={() => navigate("/CookiePreference")}>COOKIE PREFERENCES</a>
+          <li className="font-poppins font-semibold transition-all ease-in duration-300 relative cursor-pointer text-center text-[13px] hover:bg-white/10 px-4 py-2 rounded-[8px] uppercase text-white">
+            <button onClick={() => navigate("/CookiePreference")}>COOKIE PREFERENCES</button>
           </li>
         </ul>
       </div>
@@ -39,7 +38,7 @@ const Footer = () => {
           {/* Footer text goes here */}
         </p>
       </div>
-    </div>
+    </footer>
   );
 };
 

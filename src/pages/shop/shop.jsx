@@ -123,19 +123,18 @@ export const Shop = () => {
   }
 
   return (
-    <div className="shop p-6 min-h-screen flex flex-col justify-center items-center">
-      <div className="shopTitle text-center">
-        <h1 className="font-poppins text-5xl font-bold text-[#FF4655] m-8 p-12">
+    <div className="shop bg-[#0f1923] p-6 min-h-screen flex flex-col justify-center items-center">
+      <div className="shopTitle text-center pt-8">
+        <h1 className="font-poppins text-4xl sm:text-5xl font-bold tracking-wide text-[#FF4655] mb-8">
           PRODUCT SHOP
         </h1>
       </div>
 
       {/* Filters */}
-      <div className="flex sm:flex-row flex-col w-full max-w-6xl justify-center items-start mb-6">
-        <div className="sm:w-[30%] w-0"></div>
+      <div className="flex sm:flex-row flex-col w-full max-w-6xl justify-center items-stretch mb-8 bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 gap-4">
 
         {/* Price Range */}
-        <div className="sm:w-[40%] w-full flex flex-col justify-center items-center my-4">
+        <div className="sm:w-1/2 w-full flex flex-col justify-center items-center">
           <label className="text-xl font-bold m-5 text-red-500">
             Price Range: ₹{priceRange[0]} - ₹{priceRange[1]}
           </label>
@@ -151,7 +150,7 @@ export const Shop = () => {
         </div>
 
         {/* Sort */}
-        <div className="p-6 sm:w-[30%] w-full my-4">
+        <div className="p-2 sm:w-1/2 w-full flex flex-col justify-center">
           <label className="text-lg font-bold mr-2 text-red-500">Sort By:</label>
           <div className="flex flex-wrap gap-2 mt-2">
             {sortOptions.map((opt) => (
@@ -161,7 +160,7 @@ export const Shop = () => {
                 className={`px-3 py-1 text-sm rounded text-white shadow-sm transition-colors ${
                   sortOption === opt.value
                     ? "bg-red-500"
-                    : "bg-gray-400 hover:bg-gray-500"
+                    : "bg-white/10 hover:bg-white/20"
                 }`}
               >
                 {opt.label}
@@ -173,7 +172,7 @@ export const Shop = () => {
 
       {/* Product Count and Reset */}
       <div className="w-full flex justify-between items-center mb-4 px-4 max-w-6xl">
-        <p className="text-gray-600">
+        <p className="text-gray-300">
           Showing {filteredProducts.length} of {products.length} products
           {localLoading && (
             <span className="ml-2 text-sm text-blue-500">
@@ -184,14 +183,14 @@ export const Shop = () => {
         <div className="flex gap-2">
           <button
             onClick={resetFilters}
-            className="text-blue-500 hover:text-blue-700 underline text-sm"
+            className="text-gray-300 hover:text-white underline text-sm"
           >
             Reset Filters
           </button>
           <button
             onClick={() => window.location.reload()}
             disabled={contextLoading}
-            className="text-red-500 hover:text-red-700 underline text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-red-400 hover:text-red-300 underline text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {contextLoading ? "Loading..." : "Refresh Products"}
           </button>

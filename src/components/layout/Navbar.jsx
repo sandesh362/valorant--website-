@@ -20,7 +20,7 @@ const Navbar = () => {
     { id: "/marketplace", title: "Marketplace" },
     { id: "/store", title: "VP Store" },
     { 
-      id: user ? (user.role === 'admin' ? "/admin" : "/seller-dashboard") : "/login", 
+      id: user ? (user.role === 'admin' ? "/admin" : "/seller-dashboard") : "/admin-login",
       title: user ? "Dashboard" : "Sell Accounts" 
     }
   ];
@@ -50,12 +50,12 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="flex h-[80px]">
-            <ul className="list-none md:flex hidden justify-end items-center ml-10">
+            <ul className="list-none md:flex hidden justify-end items-center ml-6">
               {allNavLinks.map((navLink, index) => (
                 <li
                   key={navLink.id}
-                  className={`font-poppins font-normal relative cursor-pointer text-center text-[13px] hover:bg-[gray]/40 px-4 py-2 rounded-[8px] uppercase ${
-                    index === allNavLinks.length - 1 ? "mr-0" : "mr-6"
+                  className={`font-poppins font-medium relative cursor-pointer text-center text-[13px] hover:bg-white/10 px-3 py-2 rounded-[8px] uppercase transition-colors ${
+                    index === allNavLinks.length - 1 ? "mr-0" : "mr-2"
                   } text-white ${
                     navLink.id === "/store" 
                       ? "bg-gradient-to-r from-red-500/20 to-blue-500/20 border border-red-500/30 hover:border-red-500/60" 
@@ -86,8 +86,8 @@ const Navbar = () => {
           {/* Cart & Mobile Menu Button */}
           <div className="mr-4">
             <div className="flex justify-end items-center gap-4">
-              <Link to="/cart">
-                <div id="navbutton" className="md:flex hidden">
+              <Link to="/cart" aria-label="Open cart">
+                <div id="navbutton" className="md:flex hidden items-center justify-center shadow-lg shadow-red-500/10">
                   <button><ShoppingCart size={20} /></button>
                 </div>
               </Link>

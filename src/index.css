@@ -50,6 +50,31 @@
   scroll-behavior: smooth;
 }
 
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #0f1923;
+  color: #f4f4f4;
+  font-family: "Poppins", sans-serif;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #ff4655;
+  outline-offset: 3px;
+}
+
 .no-scrollbar::-webkit-scrollbar { width: 0 !important }
 .no-scrollbar { overflow: -moz-scrollbars-none; }
 .no-scrollbar { -ms-overflow-style: none; }
@@ -183,6 +208,13 @@
 nav {
   background-color: #111;
   border-bottom: 2px solid rgba(51, 51, 51, .25);
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
 }
 
 .btn {
